@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Registration Form</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .form-container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      width: 360px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #6a5acd;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0 15px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: -12px;
+      margin-bottom: 10px;
+      display: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #6a5acd;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #5947c0;
+    }
+
+    .success {
+      color: green;
+      margin-top: 10px;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="form-container">
+    <h2>User Registration</h2>
+
+    <form id="regForm" novalidate>
+      <label>Name:</label>
+      <input type="text" id="name">
+      <p class="error" id="nameError">Please enter your name.</p>
+
+      <label>Email:</label>
+      <input type="text" id="email">
+      <p class="error" id="emailError">Enter a valid email address.</p>
+
+      <label>Password:</label>
+      <input type="password" id="password">
+      <p class="error" id="passError">Password must be at least 6 characters.</p>
+
+      <label>Confirm Password:</label>
+      <input type="password" id="confirmPassword">
+      <p class="error" id="confirmError">Passwords do not match.</p>
+
+      <button type="submit">Register</button>
+      <p class="success" id="successMsg"></p>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("regForm");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault(); // Stop page reload
+
+      let name = document.getElementById("name").value.trim();
+      let email = document.getElementById("email").value.trim();
+      let password = document.getElementById("password").value;
+      let confirmPassword = document.getElementById("confirmPassword").value;
+
+      let valid = true;
+
+      // Name validation
+      if (name === "") {
+        document.getElementById("nameError").style.display = "block";
+        valid = false;
+      } else {
+        document.getElementById("nameError").style.display = "none";
+      }
+
+      // Email validation (basic regex)
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+      if (!email.match(emailPattern)) {
+        document.getElementById("emailError").style.display = "block";
+        valid = false;
+      } else {
+        document.getElementById("emailError").style.display = "none";
+      }
+
+      // Password validation
+      if (password.length < 6) {
+        document.getElementById("passError").style.display = "block";
+        valid = false;
+      } else {
+        document.getElementById("passError").style.display = "none";
+      }
+
+      // Confirm password validation
+      if (password !== confirmPassword || confirmPassword === "") {
+        document.getElementById("confirmError").style.display = "block";
+        valid = false;
+      } else {
+        document.getElementById("confirmError").style.display = "none";
+      }
+
+      // If all validations passed
+      if (valid) {
+        document.getElementById("successMsg").textContent =
+          "Registration Successful!";
+      } else {
+        document.getElementById("successMsg").textContent = "";
+      }
+    });
+  </script>
+
+</body>
+</html>

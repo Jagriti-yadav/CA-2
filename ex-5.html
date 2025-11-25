@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Changer</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+      transition: background-color 0.4s ease;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 32px;
+    }
+
+    #colorName {
+      margin-top: 15px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    button {
+      padding: 12px 25px;
+      font-size: 18px;
+      cursor: pointer;
+      background-color: #6a5acd;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #5947c0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Color Changer</h1>
+
+  <button id="btn">Change Background Color</button>
+
+  <div id="colorName">Current Color: #f4f4f4</div>
+
+  <script>
+    const btn = document.getElementById("btn");
+    const colorName = document.getElementById("colorName");
+
+    // Array of colors
+    const colors = [
+      "#FF6F61", "#6B5B95", "#88B04B", "#F7CAC9", "#92A8D1",
+      "#FFB347", "#B565A7", "#009B77", "#DD4124", "#45B8AC"
+    ];
+
+    btn.addEventListener("click", function () {
+      // Pick a random color
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+      // Change background
+      document.body.style.backgroundColor = randomColor;
+
+      // Display color
+      colorName.textContent = "Current Color: " + randomColor;
+    });
+  </script>
+
+</body>
+</html>

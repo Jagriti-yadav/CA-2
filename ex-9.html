@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random User Generator</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #4691dc;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: #fff;
+      width: 350px;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+      border: 3px solid #007bff;
+    }
+
+    .info {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #444;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+
+</head>
+<body>
+
+  <div class="container">
+    <h2>Random User Information</h2>
+    
+    <img id="user-img" src="" alt="User Image">
+
+    <p class="info" id="user-name">Name: Loading...</p>
+    <p class="info" id="user-email">Email: Loading...</p>
+
+    <button onclick="getRandomUser()">Get New User</button>
+  </div>
+
+  <script>
+    // Fetch and display random user data
+    function getRandomUser() {
+      fetch("https://randomuser.me/api/")
+        .then(response => response.json())
+        .then(data => {
+          const user = data.results[0];
+
+          document.getElementById("user-img").src = user.picture.large;
+          document.getElementById("user-name").textContent =
+            `Name: ${user.name.first} ${user.name.last}`;
+          document.getElementById("user-email").textContent =
+            `Email: ${user.email}`;
+        })
+        .catch(error => {
+          console.log("Error fetching user:", error);
+        });
+    }
+
+    // Load one user on page load
+    window.onload = getRandomUser;
+  </script>
+
+</body>
+</html>
